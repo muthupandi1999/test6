@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript Form validation</title>
+    <style>
+        body {
+            font-size: 16px;
+            background: #f9f9f9;
+        }
+
+        h2 {
+            text-align: center;
+            text-decoration: underline;
+        }
+
+        form {
+            width: 500px;
+            background: #fff;
+            padding: 15px 40px 40px;
+            border: 1px solid #ccc;
+            margin: 50px auto 0;
+            border-radius: 5px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px
+        }
+
+        label i {
+            color: #999;
+            font-size: 80%;
+        }
+
+        input,
+        select {
+            border: 1px solid #ccc;
+            padding: 10px;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 2px;
+        }
+
+        .row {
+            padding-bottom: 10px;
+        }
+
+        .f-inline {
+            border: 1px solid #ccc;
+            padding: 8px 10px 4px;
+            border-radius: 2px;
+        }
+
+        .f-inline label,
+        .f-inline input {
+            display: inline-block;
+            width: auto;
+            padding-right: 15px;
+        }
+
+        .error {
+            color: red;
+            font-size: 90%;
+        }
+
+        input[type="submit"] {
+            font-size: 110%;
+            font-weight: 100;
+            background: #006dcc;
+            border-color: #016BC1;
+            box-shadow: 0 3px 0 #0165b6;
+            color: #fff;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background: #0165b6;
+        }
+    </style>
+    <script>
+
+        function printError(elemId, hintMsg) {
+            document.getElementById(elemId).innerHTML = hintMsg;
+        }
+
+
+        function validateForm() {
+
+            var name1 = document.contactForm.name.value;
+            var name = name1.trim()
+            var email = document.contactForm.email.value;
+            var password1 = document.contactForm.pass1.value;
+            var password2 = document.contactForm.pass2.value;
+            var mobile = document.contactForm.mobile.value;
+            var country = document.contactForm.country.value;
+            var gender = document.contactForm.gender.value;
+            var agree = document.contactForm.agree.value;
+            var color = document.contactForm.color.value;
+            var date = document.contactForm.date.value;
+            var time = document.contactForm.time.value;
+            var file = document.contactForm.file.value;
+
+            var nameErr = emailErr = mobileErr = passErr = countryErr = genderErr = checkboxes = colorErr = dateErr = timeErr = fileErr = agreeErr = true
+
+            //===================== Validate name======================
+            if (name == "") {
+                printError("nameErr", "Please enter your name");
+            } else {
+                var nameformat = /^[a-zA-Z\s]+$/;
+                if (nameformat.test(name) === false) {
+                    printError("nameErr", "Please enter a valid name");
+                } else {
+                    printError("nameErr", "");
+                    nameErr = false;
+                }
+            }
+
+            // ========================= email address=======================
+            if (email == "") {
+                printError("emailErr", "Please enter your email address");
+            } else {
+                var mail_format = /^\S+@\S+\.\S+$/;
+                if (mail_format.test(email) === false) {
+                    printError("emailErr", "Please enter a valid email Format");
+                } else {
+                    printError("emailErr", "");
+                    emailErr = false;
+                }
+            }
+            // =============================Password================================
+            if (password1 == "" || password2 == "") {
+                printError("passErr1", "Please enter your password");
+                printError("passErr2", "Please enter your password");
+            } else {
+                if (password1 !== password2 || password1.lengh <= 6 || password2.lengh <= 6) {
+                    printError("passErr1", "Please enter password must be same and above 6 characters");
+                    printError("passErr2", "Please enter password must be same and above 6 characters");
+                } else {
+                    printError("passErr1", "");
+                    printError("passErr2", "");
+                    passErr = false;
+                }
+
+            }
+            //============================ Validate mobile number=======================
+            if (mobile == "") {
+                printError("mobileErr", "Please enter your mobile number");
+            } else {
+                var regex = /^[1-9]\d{9}$/;
+                if (regex.test(mobile) === false) {
+                    printError("mobileErr", "Please enter a valid 10 digit mobile number");
+                } else {
+                    printError("mobileErr", "");
+                    mobileErr = false;
+                }
+            }
+
+            // ================country validation==================
+            if (country == "Select") {
+                printError("countryErr", "Please select your country");
+            } else {
+                printError("countryErr", "");
+                countryErr = false;
+            }
+
+            // ====================== gender validation===================
+            if (gender == "") {
+                printError("genderErr", "Please select your gender");
+            } else {
+                printError("genderErr", "");
+                genderErr = false;
+            }
+
+            if (agree.unchecked) {
+                printError("agreeErr", "check this field");}
+             else {
+                printError("agreeErr", "");
+                hobbieseErr = false;
+            }
+
+            if (color == "#000000") {
+                printError("colorErr", "Choose color");
+            } else {
+                printError("colorErr", "");
+                colorErr = false;
+            }
+            if (date == "") {
+                printError("dateErr", "Choose Your Date Birth");
+            } else {
+                printError("dateErr", "");
+                colorErr = false;
+            }
+            if (time == "") {
+                printError("timeErr", "Enter time ?");
+            } else {
+                printError("timeErr", "");
+                colorErr = false;
+            }
+            if (file == " ") {
+                printError("fileErr", "File needed ?");
+            } else {
+                printError("fileErr", "");
+                colorErr = false;
+            }
+            if ((nameErr || emailErr || mobileErr || passErr || countryErr || genderErr || checkboxes || colorErr || dateErr || timeErr || fileErr || agreeErr) == true) {
+                return false;
+            } else {
+                alert("Registerd Sucessfully")
+            }
+        };
+    </script>
+
+</head>
+
+<body>
+    <form name="contactForm" onsubmit="return validateForm()" method="post">
+        <h2>Form</h2>
+        <div class="row">
+            <label>Name</label>
+            <input type="text" name="name">
+            <div class="error" id="nameErr"></div>
+        </div>
+        <div class="row">
+            <label>Email</label>
+            <input type="text" name="email">
+            <div class="error" id="emailErr"></div>
+        </div>
+        <div class="row">
+            <label>Password</label>
+            <input type="password" name="pass1">
+            <div class="error" id="passErr1"></div>
+        </div>
+        <div class="row">
+            <label>Confirm Password</label>
+            <input type="password" name="pass2">
+            <div class="error" id="passErr2"></div>
+        </div>
+        <div class="row">
+            <label>Mobile Number</label>
+            <input type="text" name="mobile" maxlength="10">
+            <div class="error" id="mobileErr"></div>
+        </div>
+        <div class="row">
+            <label>Country</label>
+            <select name="country">
+                <option>Select</option>
+                <option>Australia</option>
+                <option>India</option>
+                <option>United States</option>
+                <option>United Kingdom</option>
+            </select>
+            <div class="error" id="countryErr"></div>
+        </div>
+        <div class="row">
+            <label>Gender</label>
+            <div class="f-inline">
+                <label><input type="radio" name="gender" value="male"> Male</label>
+                <label><input type="radio" name="gender" value="female"> Female</label>
+            </div>
+            <div class="error" id="genderErr"></div>
+        </div>
+       
+        <div class="row">
+            <label>Color</label>
+            <input type="color" name="color">
+            <div class="error" id="colorErr"></div>
+        </div>
+        <div class="row">
+            <label>Date</label>
+            <input type="date" name="date">
+            <div class="error" id="dateErr"></div>
+        </div>
+        <div class="row">
+            <label>Apply time</label>
+            <input type="time" name="time">
+            <div class="error" id="timeErr"></div>
+        </div>
+        <div class="row">
+            <label>File</label>
+            <input type="file" name="file">
+            <div class="error" id="fileErr"></div>
+        </div>
+        <div class="row">
+            <div class="f-inline">
+                <label><input type="checkbox" id="c1" name="agree" value="agree"> Agree</label>
+            </div>
+            <div class="error" id="agreeErr"></div>
+        </div>
+        <div class="row">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+</body>
+
+</html>
